@@ -91,3 +91,26 @@ stages:
       hash: md5
       md5: c0de31c31c31070e52aac2eefab4231e
       size: 438002886
+  evaluation:
+    cmd: python src/bert_toxic/pipeline/stage_05_evaluate_model.py
+    deps:
+    - path: artifacts/data_split/test/test.csv
+      hash: md5
+      md5: 03567a9d1819ecffd84d50f4a7d31dc3
+      size: 26423
+    - path: artifacts/training/model.pth
+      hash: md5
+      md5: c0de31c31c31070e52aac2eefab4231e
+      size: 438002886
+    - path: config/config.yaml
+      hash: md5
+      md5: 2a1e612b707dfcf53c78b370cadac471
+      size: 653
+    - path: params.yaml
+      hash: md5
+      md5: 5a13c653a9088c493636ff97dc519ae1
+      size: 206
+    - path: src/bert_toxic/pipeline/stage_05_evaluate_model.py
+      hash: md5
+      md5: 9fb89ecbbfc180fbeaa032ea3c7bc9d4
+      size: 857

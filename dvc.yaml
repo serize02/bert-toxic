@@ -46,3 +46,16 @@ stages:
     outs:
       - artifacts/training/model.pth
 
+  evaluation:
+    cmd: python src/bert_toxic/pipeline/stage_05_evaluate_model.py
+    deps:
+      - src/bert_toxic/pipeline/stage_05_evaluate_model.py
+      - config/config.yaml
+      - artifacts/data_split/test/test.csv
+      - artifacts/training/model.pth
+      - params.yaml
+
+    # metrics:
+    # - scores.json:
+    #     cache: false
+

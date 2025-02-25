@@ -1,6 +1,6 @@
 from bert_toxic.constants import *
 from bert_toxic.utils.common import read_yaml, create_directories
-from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig, SetupModelConfig, TrainingConfig
+from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig, SetupModelConfig, TrainingConfig, EvaluationConfig
 from pathlib import Path
 
 class ConfigurationManager:
@@ -76,6 +76,21 @@ class ConfigurationManager:
             params_train_num_workers=params.train_num_workers,
             params_train_shuffle=params.train_shuffle,
         )
+
+    def get_evaluation_config(self) -> EvaluationConfig:
+
+        return EvaluationConfig(
+            model_path=Path(self.config.training.trained_model_path),
+            testing_data_path=Path(self.config.data_split.test_data_path),
+            all_params=self.params,
+            params_max_len=self.params.max_len,
+            params_valid_batch_size=self.params.valid_batch_size,
+            params_epochs=self.params.EPOCHS,
+            params_valid_num_workers=self.params.valid_num_workers,
+            params_valid_shuffle=self.params.valid_shuffle
+        )
+
+        return eval_config
 
 
 

@@ -40,3 +40,14 @@ class TrainingConfig:
     params_train_num_workers: int
     params_train_shuffle: bool
 
+
+@dataclass(frozen=True)
+class EvaluationConfig:
+    model_path: Path
+    testing_data_path: Path
+    all_params: dict
+    params_max_len: int
+    params_valid_batch_size: int
+    params_epochs: int
+    params_valid_num_workers: int
+    params_valid_shuffle: bool
