@@ -31,6 +31,12 @@ jobs:
       - name: Run DVC pipeline
         run: dvc repro
 
+      - name: Upload Model Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: model
+          path: artifacts/training/model.pth
+
       - name: Write CML report
         env:
           REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
