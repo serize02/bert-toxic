@@ -54,8 +54,10 @@ stages:
       - artifacts/data_split/test/test.csv
       - artifacts/training/model.pth
       - params.yaml
-
-    # metrics:
-    # - scores.json:
-    #     cache: false
+    metrics:
+    - scores.json:
+        cache: false
+    plots:
+    - confusion_matrix.png:
+        cache: false
 

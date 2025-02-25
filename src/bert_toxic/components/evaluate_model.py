@@ -77,9 +77,9 @@ class EvaluateModel:
             f1_score_micro = metrics.f1_score(targets, outputs, average='micro')
             f1_score_macro = metrics.f1_score(targets, outputs, average='macro')
 
-            # if epoch == epochs-1:
-            #     self.metrics = self.save_metrics(accuracy, f1_score_micro, f1_score_macro)
-            #     self.plot_confusion_matrix(targets, outputs)
+            if epoch == epochs-1:
+                self.metrics = self.save_metrics(accuracy, f1_score_micro, f1_score_macro)
+                self.plot_confusion_matrix(targets, outputs)
 
             print(f"Accuracy Score = {accuracy}")
             print(f"F1 Score (Micro) = {f1_score_micro}")
@@ -118,7 +118,7 @@ class EvaluateModel:
         with mlflow.start_run():
             
             mlflow.log_params(self.config.all_params)
-            # mlflow.log_metrics(self.metrics)
+            mlflow.log_metrics(self.metrics)
             mlflow.pytorch.log_model(self.model, 'model', registered_model_name='bert')
-            # mlflow.pytorch.log_artifact('confusion_matrix.png')
+            mlflow.pytorch.log_artifact('confusion_matrix.png')
     

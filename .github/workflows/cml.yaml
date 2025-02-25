@@ -1,0 +1,58 @@
+name: report_model
+
+on:
+  push:
+    branches: main
+
+permissions: write-all
+
+jobs:
+  model-artifacts:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout 
+        uses: actions/checkout@v3
+      
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.8
+      
+      - name: Intall Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Setup CML
+        uses: iterative/setup-cml@v1
+          
+      - name: Setup DVC
+        uses: iterative/setup-dvc@v1
+      
+      - name: Run DVC pipeline
+        run: dvc repro
+
+      - name: Write CML report
+        env:
+          REPO_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          echo "![confusion matrix plot](./confusion_matrix.png)" >> plots.md
+          cml comment create confusion.md
+
+  telegram:
+    needs: model-artifacts
+    name: Build
+    runs-on: ubuntu-latest
+    steps:
+      - name: send telegram
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.CHAT_ID }}
+          token: ${{ secrets.TOKEN }}
+          message: |
+            ${{ github.actor }} created commit:
+            Commit message: ${{ github.event.commits[0].message }}
+            
+            Repository: ${{ github.repository }}
+            
+            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+          photo: ./confusion_matrix.png
