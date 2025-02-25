@@ -4,7 +4,7 @@
 
 This project aims to develop a system that classifies messages from Dota 2 game chats based on their toxicity levels, focusing on insults and offensive comments. The core of the system is a neural network built upon BERT (Bidirectional Encoder Representations from Transformers), a language model developed by Hugging Face, implemented using PyTorch. The project also incorporates tools such as MLflow for experiment tracking, DagsHub, and DVC for data and version control, aligning with MLOps best practices.
 
-[](./image.jpg)
+![AltText](./image.jpg)
 
 ## Local Usage
 
