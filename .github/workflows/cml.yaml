@@ -45,7 +45,7 @@ jobs:
           cml comment create confusion.md
 
   telegram:
-    needs: model-artifacts
+    needs: model
     name: Build
     runs-on: ubuntu-latest
     steps:
