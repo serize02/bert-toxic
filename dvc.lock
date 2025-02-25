@@ -1,0 +1,18 @@
+schema: '2.0'
+stages:
+  data_ingestion:
+    cmd: python src/bert_toxic/pipeline/stage_01_data_ingestion.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: c44e6d34630b5afe3801e63e8fa006b5
+      size: 232
+    - path: src/bert_toxic/pipeline/stage_01_data_ingestion.py
+      hash: md5
+      md5: 75930ebd77e7af7719df3341f15b7d8d
+      size: 755
+    outs:
+    - path: artifacts/data_ingestion/data.csv
+      hash: md5
+      md5: fe4804e4484a90fe7c49c1f079110dee
+      size: 89737

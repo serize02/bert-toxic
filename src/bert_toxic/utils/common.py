@@ -1,7 +1,7 @@
 import os
 from box.exceptions import BoxValueError
 import yaml
-from bert_toxic_chat_clf import logger
+from bert_toxic import logger
 import json
 import joblib
 from ensure import ensure_annotations
