@@ -17,4 +17,15 @@ stages:
     outs:
       - artifacts/data_split/train/train.csv
       - artifacts/data_split/test/test.csv
+    
+  setup_model:
+    cmd: python src/bert_toxic/pipeline/stage_03_setup_model.py
+    deps:
+      - src/bert_toxic/pipeline/stage_03_setup_model.py
+      - config/config.yaml
+    params:
+      - classes
+      - dropout
+    outs:
+      - artifacts/setup_model/model.pth
 

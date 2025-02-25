@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 1871ed03e0872ffadb3ee281b6e0b72c
-      size: 465
+      md5: ee3b02b7d6ce5d310dc9950eb739effe
+      size: 559
     - path: src/bert_toxic/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 75930ebd77e7af7719df3341f15b7d8d
@@ -21,8 +21,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: 1871ed03e0872ffadb3ee281b6e0b72c
-      size: 465
+      md5: ee3b02b7d6ce5d310dc9950eb739effe
+      size: 559
     - path: src/bert_toxic/pipeline/stage_02_data_split.py
       hash: md5
       md5: b28a553624532420f5be3b97721b5511
@@ -39,3 +39,23 @@ stages:
       hash: md5
       md5: b18d89f67d8680f798bd21b288dd397a
       size: 63329
+  setup_model:
+    cmd: python src/bert_toxic/pipeline/stage_03_setup_model.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: ee3b02b7d6ce5d310dc9950eb739effe
+      size: 559
+    - path: src/bert_toxic/pipeline/stage_03_setup_model.py
+      hash: md5
+      md5: 91de3f47f560882fa48a94f5e61355db
+      size: 735
+    params:
+      params.yaml:
+        classes: 3
+        dropout: 0.3
+    outs:
+    - path: artifacts/setup_model/model.pth
+      hash: md5
+      md5: 24df67ff32ea9aaa8e8e0ef3f16695bf
+      size: 438002886

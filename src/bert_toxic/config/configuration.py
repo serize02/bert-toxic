@@ -1,6 +1,6 @@
 from bert_toxic.constants import *
 from bert_toxic.utils.common import read_yaml, create_directories
-from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig
+from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig, SetupModelConfig
 from pathlib import Path
 
 class ConfigurationManager:
@@ -23,6 +23,7 @@ class ConfigurationManager:
             local_data_file=config.local_data_file
         )
 
+
     def get_data_split_config(self) -> DataSplitConfig:
 
         config = self.config.data_split
@@ -40,6 +41,22 @@ class ConfigurationManager:
         )
 
         return data_split_config
+
+
+    def get_setup_model_config(self) -> SetupModelConfig:
+        
+        config = self.config.setup_model
+
+        create_directories([config.root_dir])
+
+        setup_model_config = SetupModelConfig(
+            root_dir=Path(config.root_dir),
+            model_path=Path(config.model_path),
+            params_classes=self.params.classes,
+            params_dropout=self.params.dropout,
+        )
+
+        return setup_model_config
 
 
 

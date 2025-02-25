@@ -8,7 +8,7 @@ class DataIngestionConfig:
     local_data_file: Path
 
 
-@dataclass
+@dataclass(frozen=True)
 class DataSplitConfig:
     root_dir: Path
     data_path: Path
@@ -17,3 +17,12 @@ class DataSplitConfig:
     test_dir: Path
     test_data_path: Path
     params_train_size: float
+
+
+@dataclass(frozen=True)
+class SetupModelConfig:
+    root_dir: Path
+    model_path: Path
+    params_classes: int
+    params_dropout: float
+

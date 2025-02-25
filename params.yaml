@@ -1,2 +1,4 @@
-epochs: 1
 train_size: 0.7
+
+classes: 3
+dropout: 0.3
