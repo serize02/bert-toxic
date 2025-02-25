@@ -6,3 +6,15 @@ stages:
       - config/config.yaml
     outs:
       - artifacts/data_ingestion/data.csv
+
+  data_split:
+    cmd: python src/bert_toxic/pipeline/stage_02_data_split.py
+    deps:
+      - src/bert_toxic/pipeline/stage_02_data_split.py
+      - config/config.yaml
+    params:
+      - train_size
+    outs:
+      - artifacts/data_split/train/train.csv
+      - artifacts/data_split/test/test.csv
+

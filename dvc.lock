@@ -5,8 +5,8 @@ stages:
     deps:
     - path: config/config.yaml
       hash: md5
-      md5: c44e6d34630b5afe3801e63e8fa006b5
-      size: 232
+      md5: 1871ed03e0872ffadb3ee281b6e0b72c
+      size: 465
     - path: src/bert_toxic/pipeline/stage_01_data_ingestion.py
       hash: md5
       md5: 75930ebd77e7af7719df3341f15b7d8d
@@ -16,3 +16,26 @@ stages:
       hash: md5
       md5: fe4804e4484a90fe7c49c1f079110dee
       size: 89737
+  data_split:
+    cmd: python src/bert_toxic/pipeline/stage_02_data_split.py
+    deps:
+    - path: config/config.yaml
+      hash: md5
+      md5: 1871ed03e0872ffadb3ee281b6e0b72c
+      size: 465
+    - path: src/bert_toxic/pipeline/stage_02_data_split.py
+      hash: md5
+      md5: b28a553624532420f5be3b97721b5511
+      size: 730
+    params:
+      params.yaml:
+        train_size: 0.7
+    outs:
+    - path: artifacts/data_split/test/test.csv
+      hash: md5
+      md5: 03567a9d1819ecffd84d50f4a7d31dc3
+      size: 26423
+    - path: artifacts/data_split/train/train.csv
+      hash: md5
+      md5: b18d89f67d8680f798bd21b288dd397a
+      size: 63329
