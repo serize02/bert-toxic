@@ -1,4 +1,4 @@
-name: report_model
+name: model
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
 permissions: write-all
 
 jobs:
-  model-artifacts:
+  model:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout 
@@ -32,7 +32,7 @@ jobs:
         run: dvc repro
 
       - name: Upload Model Artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: model
           path: artifacts/training/model.pth
