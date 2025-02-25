@@ -1,6 +1,6 @@
 from bert_toxic.constants import *
 from bert_toxic.utils.common import read_yaml, create_directories
-from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig, SetupModelConfig
+from bert_toxic.entity.entity_config import DataIngestionConfig, DataSplitConfig, SetupModelConfig, TrainingConfig
 from pathlib import Path
 
 class ConfigurationManager:
@@ -30,7 +30,7 @@ class ConfigurationManager:
 
         create_directories([config.root_dir, config.train_dir, config.test_dir])
 
-        data_split_config = DataSplitConfig(
+        return DataSplitConfig(
             root_dir=Path(config.root_dir),
             data_path=Path(self.config.data_ingestion.local_data_file),
             train_dir=Path(config.train_dir),
@@ -40,8 +40,6 @@ class ConfigurationManager:
             params_train_size=self.params.TRAIN_SIZE
         )
 
-        return data_split_config
-
 
     def get_setup_model_config(self) -> SetupModelConfig:
         
@@ -49,14 +47,35 @@ class ConfigurationManager:
 
         create_directories([config.root_dir])
 
-        setup_model_config = SetupModelConfig(
+        return SetupModelConfig(
             root_dir=Path(config.root_dir),
             model_path=Path(config.model_path),
             params_classes=self.params.classes,
             params_dropout=self.params.dropout,
         )
 
-        return setup_model_config
+    
+    def get_training_config(self) -> TrainingConfig:
+        
+        training = self.config.training
+        setup_model = self.config.setup_model
+
+        params = self.params
+        
+        create_directories([Path(training.root_dir)])
+
+        return TrainingConfig(
+            root_dir=Path(training.root_dir),
+            model_path=Path(setup_model.model_path),
+            trained_model_path=Path(training.trained_model_path),
+            training_data_path=Path(self.config.data_split.train_data_path),
+            params_max_len=params.max_len,
+            params_train_batch_size=params.train_batch_size,
+            params_epochs=params.epochs,
+            params_learning_rate=params.learning_rate,
+            params_train_num_workers=params.train_num_workers,
+            params_train_shuffle=params.train_shuffle,
+        )
 
 
 

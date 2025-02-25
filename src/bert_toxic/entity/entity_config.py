@@ -26,3 +26,17 @@ class SetupModelConfig:
     params_classes: int
     params_dropout: float
 
+
+@dataclass(frozen=True)
+class TrainingConfig:
+    root_dir: Path
+    model_path: Path
+    trained_model_path: Path
+    training_data_path: Path
+    params_max_len: int
+    params_train_batch_size: int
+    params_epochs: int
+    params_learning_rate: float
+    params_train_num_workers: int
+    params_train_shuffle: bool
+

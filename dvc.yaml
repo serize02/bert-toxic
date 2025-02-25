@@ -29,3 +29,20 @@ stages:
     outs:
       - artifacts/setup_model/model.pth
 
+  train:
+    cmd: python src/bert_toxic/pipeline/stage_04_train_model.py
+    deps:
+      - src/bert_toxic/pipeline/stage_04_train_model.py
+      - config/config.yaml
+      - artifacts/data_split/train/train.csv
+      - artifacts/setup_model/model.pth
+    params:
+      - max_len
+      - train_batch_size
+      - epochs
+      - learning_rate
+      - train_num_workers
+      - train_shuffle
+    outs:
+      - artifacts/training/model.pth
+
