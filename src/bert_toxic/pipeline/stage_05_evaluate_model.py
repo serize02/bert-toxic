@@ -17,7 +17,9 @@ class EvaluateModelPip():
         evaluation.setup_device()
         evaluation.load_model()
         evaluation.load_data()
+        logger.info('running evaluation')
         evaluation.run_validation()
+        logger.info('tracking to ml-flow server')
         evaluation.log_mlflow()
 
 if __name__ == '__main__':

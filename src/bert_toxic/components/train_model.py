@@ -10,6 +10,7 @@ from bert_toxic.components.setup_model import BertClass
 from sklearn import metrics
 from bert_toxic.entity.entity_config import TrainingConfig
 from bert_toxic.components.custom_dataset import CustomDataset
+from bert_toxic import logger
 
 class TrainModel:
 
@@ -71,7 +72,7 @@ class TrainModel:
                 self.optimizer.zero_grad()
                 loss = self.loss_fn(outputs, targets)
                 if _%5000==0:
-                    print(f'Epoch: {epoch}, Loss:  {loss.item()}')
+                    logger.info(f'Epoch: {epoch}, Loss:  {loss.item()}')
                 
                 self.optimizer.zero_grad()
                 loss.backward()
