@@ -42,7 +42,7 @@ class EvaluateModel:
         self.testing_loader = DataLoader(testing_set, **test_params)
 
 
-    def validation(self, epoch):
+    def validation(self):
 
         self.model.eval()
 
@@ -70,7 +70,7 @@ class EvaluateModel:
 
         for epoch in range(epochs):
         
-            outputs, targets = self.validation(epoch)
+            outputs, targets = self.validation()
             outputs = np.array(outputs) >= 0.5
 
             accuracy = metrics.accuracy_score(targets, outputs)
@@ -79,24 +79,10 @@ class EvaluateModel:
 
             if epoch == epochs-1:
                 self.metrics = self.save_metrics(accuracy, f1_score_micro, f1_score_macro)
-                self.plot_confusion_matrix(targets, outputs)
 
             print(f"Accuracy Score = {accuracy}")
             print(f"F1 Score (Micro) = {f1_score_micro}")
             print(f"F1 Score (Macro) = {f1_score_macro}")
-
-
-    @staticmethod
-    def plot_confusion_matrix(targets, outputs):
-        cm = metrics.confusion_matrix(targets, outputs)
-        plt.figure(figsize=(10, 7))
-        sns.heatmap(cm, annot=True, fmt='d', cmap='Blues', xticklabels=['Class 0', 'Class 1', 'Class 2'], yticklabels=['Class 0', 'Class 1', 'Class 2'])
-        plt.ylabel('Actual')
-        plt.xlabel('Predicted')
-        plt.title('Confusion Matrix')
-        plt.savefig('confusion_matrix.png')
-        plt.close()
-
 
     @staticmethod
     def save_metrics(accuracy, f1_micro, f1_macro):
@@ -120,5 +106,4 @@ class EvaluateModel:
             mlflow.log_params(self.config.all_params)
             mlflow.log_metrics(self.metrics)
             mlflow.pytorch.log_model(self.model, 'model', registered_model_name='bert')
-            mlflow.pytorch.log_artifact('confusion_matrix.png')
     

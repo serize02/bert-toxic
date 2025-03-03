@@ -57,7 +57,4 @@ stages:
     metrics:
     - scores.json:
         cache: false
-    plots:
-    - confusion_matrix.png:
-        cache: false
 
